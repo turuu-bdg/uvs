@@ -1,0 +1,81 @@
+.header-top i{
+
+}
+.header-top{
+    padding-right: 30px !important;
+}
+#card1 .nav-link{
+    margin-right: 5px;
+    background-color: antiquewhite;
+}
+.theme-color{
+    background-color: #404E67;
+}
+#head_icon i {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 20px;
+    vertical-align: middle;
+    font-size: 22px;
+    color: #fff;
+    display: inline-flex;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+    -ms-flex-pack: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-box-shadow: 0 2px 12px -3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 2px 12px -3px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 12px -3px rgba(0,0,0,0.5);
+}
+
+.red{
+    color: red;
+}
+
+.t1 a{
+    color: blue;
+}
+.t1 a:hover{
+    font-size: 14px;
+}
+
+
+#dateTable th{
+    padding: 5px !important;
+    font-size: 13px !important;
+}
+
+#dateTable td{
+    padding: 5px !important;
+    font-size: 13px !important;
+}
+.scroll_horizontal {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+.search{
+    padding-top: 35px;
+}
+.show_btn{
+    padding: 6px !important;
+}
+.show_btn i{
+    margin: 0 !important;
+}
+.show_btn .list-actions {
+    margin: 0 !important;
+}
+#dateTable th ,#dateTable td{
+    border: 1px solid #dee2e6 !important;
+    text-align: center !important;
+}

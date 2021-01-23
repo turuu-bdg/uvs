@@ -1,0 +1,34 @@
+<div class="sidebar-content">
+    <div class="nav-container">
+        <nav id="main-menu-navigation" class="navigation-main">
+            <div class="nav-item">
+                <a href="{{ path('index') }}"><i class="ik ik-bar-chart-2"></i><span style="font-weight: bold;">Хяналтын самбар</span> </a>
+            </div>
+            {% for p in per %}
+                {% if p.type=='menu' %}
+                    <div class="nav-item">
+                        <a href="/{{ p.action }}"><i class="ik {{ p.icon }}"></i><span>{{ p.module }}</span> </a>
+                    </div>
+                {% else %}
+
+                    <div class="nav-item has-sub">
+                        {% if (p.type=='subMenu')  %}
+                            <a href="#"><i class="ik {{ p.icon }}"></i><span>{{ p.module }}</span></a>
+                            {% set id= p.id %}
+                            {% for s in sub %}
+                                {% if id == s.subMenuId %}
+                                    <div class="submenu-content">
+                                        <a href="/{{ s.action }}" class="menu-item">{{ s.module }}</a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </nav>
+
+
+
+    </div>
+</div>

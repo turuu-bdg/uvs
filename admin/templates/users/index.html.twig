@@ -1,0 +1,114 @@
+{% extends 'base.html.twig'%}
+{% block title %} Бүртгэлтэй хэрэглэгчдийн мэдээлэл {% endblock %}
+
+{% block body %}
+
+      {{ render(controller(
+    'App\\Controller\\HomeController::index'
+)) }}
+    </div>
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="page-header">
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                <div class="page-header-title">
+                    <i class="ik ik-monitor theme-color"></i>
+                    <div class="d-inline">
+                        <h5> Хэрэглэгчид </h5>
+                        {#                        {{ new Ti }}#}
+                        {#                        {{dump(find(2))}}#}
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row layout-wrap" id="layout-wrap">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" style="flex-flow: row-reverse;">
+                    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('createUser') }}">
+                            <button type="button" class="btn btn-theme"> <i class="ik ik-plus-circle"></i> Хэрэглэгч шинээр нэмэх </button>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                        <br>
+                    {% endfor %}
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="10%">Хэрэглэгч</th>
+                            <th>Хэрэглэгчийн эрх</th>
+                            <th style="align: center"><i class="ik ik-settings"></i> </th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                            {% for u in user %}
+                                <tr class="list-item">
+                                    <td>{{ u.username }} </td>
+                                    <td>
+                                        {% for r in u.roles %}
+                                            {#                                                <option value="{{ r.id }}"> {{ r.role }}</option>#}
+                                            {% if r == 'ROLE_USER' %}
+                                                Хэрэглэгч (харах эрхтэй )
+                                            {% elseif r == 'ROLE_ADMIN' %}
+                                                Админ (удирдах эрхтэй )
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        <div class="list-actions">
+                                            {% set id= u.id %}
+                                            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+                                                <a href="{{ path('EditUser', {slug: id }) }}" data-toggle="tooltip" data-placement="top" title="Засварлах"><i class="ik ik-edit-2"></i></a>
+                                            {% endif %}
+                                            {% if is_granted('ROLE_SUPER_ADMIN')%}
+                                                <a type="button" data-toggle="modal" data-target="#delete{{ id }}" data-toggle="tooltip" data-placement="top" title="Контентийг устгах"><i class="ik ik-trash-2"></i></a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if is_granted('ROLE_SUPER_ADMIN')%}
+        {% for c in user %}
+            <div class="modal fade" id="delete{{ c.id }}" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="{{ path('deleteUser')}}" >
+
+                            <div class="modal-header">
+                                <input name="id" type="hidden" value="{{ c.id }}">
+
+                                <h5 class="modal-title" id="exampleModalCenterLabel">Та {{ c.username}}  -г үнэхээр устгах гэж байна уу?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
+                                <button type="submit" class="btn btn-danger">Устгах</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

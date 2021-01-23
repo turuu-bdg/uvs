@@ -1,0 +1,42 @@
+#index:
+#    path: /
+#    controller: App\Controller\ZurkhaiController::index
+#    methods: GET|POST
+
+index:
+    path: /
+    controller: App\Controller\HomeController::dashboard
+    methods: GET|POST
+
+article:
+    path: /
+    controller: App\Controller\ArticleController::index
+    methods: GET|POST
+
+interview:
+    path: /
+    controller: App\Controller\InterviewController::index
+    methods: GET|POST
+
+login:
+    path:  /login
+    controller: App\Controller\SecurityController::login
+    methods: GET|POST
+
+users:
+    path: /users
+    controller: App\Controller\UsersController::index
+    methods: GET|POST
+
+changepass:
+    path: /changepass
+    controller: App\Controller\UsersController::changepass
+    methods: GET|POST
+
+#test:
+#    path: /test
+#    controller: App\Controller\SendMessageController::resendByUser
+
+
+
+

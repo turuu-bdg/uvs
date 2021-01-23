@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Хэрэглэгчдийн мэдээлэл{% endblock %}
+
+{% block body %}
+
+    <div class="content">
+        <div>
+            <div style="height:25px; margin-bottom:2px;">
+                <div id="menu-item"><a href="{{ path('users') }}" class="item">Групп</a></div>
+                <div id="menu-item"><a href="{{ path('userlist') }}" class="item">Хэрэглэгчид</a></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interview{% endblock %}
+
+{% block body %}
+    <h1>Interview</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ interview.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ interview.title }}</td>
+            </tr>
+            <tr>
+                <th>Bodys</th>
+                <td>{{ interview.bodys }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ interview.picture }}</td>
+            </tr>
+            <tr>
+                <th>Types</th>
+                <td>{{ interview.types }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ interview.status }}</td>
+            </tr>
+            <tr>
+                <th>Views</th>
+                <td>{{ interview.views }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ interview.date ? interview.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{ interview.comments }}</td>
+            </tr>
+            <tr>
+                <th>Sort</th>
+                <td>{{ interview.sort }}</td>
+            </tr>
+            <tr>
+                <th>Who</th>
+                <td>{{ interview.who }}</td>
+            </tr>
+            <tr>
+                <th>CreatedDate</th>
+                <td>{{ interview.createdDate ? interview.createdDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('interview_index') }}">back to list</a>
+
+    <a href="{{ path('interview_edit', {'id': interview.id}) }}">edit</a>
+
+    {{ include('interview/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+{% block title %}Хэрэглэгч нэмэх{% endblock %}
+
+{% block body %}
+
+    {{ render(controller(
+    'App\\Controller\\HomeController::index'
+)) }}
+    </div>
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="page-header">
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                <div class="page-header-title">
+                    <i class="ik ik-user-plus theme-color"></i>
+                    <div class="d-inline">
+                        <h5> Хэрэглэгч шинээр нэмэх</h5>
+                        {#                        {{ new Ti }}#}
+                        {#                        {{dump(find(2))}}#}
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <nav class="breadcrumb-container" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('index') }}"><i class="ik ik-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Бүртгэлтэй хэрэглэгчид</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Хэрэглэгч нэмэх</li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                {% for message in app.flashes('warning') %}
+                    <div class="alert alert-warning">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+{#                <div class="card-header" id="head_icon"><i class="ik ik-user-plus theme-color"></i><h3>Хэрэглэгч шинээр нэмэх</h3></div>#}
+                <div class="card-body">
+                    <form class="forms-sample" name="myForm" method="post" action="{{ path('insertUser') }}" onsubmit="return validate_form(this)">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Хэрэглэгчийн и-мэйл хаяг</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Хэрэглэгчийн нэр" autofocus required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Нууц үг</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Нууц үг" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Хэрэглэгчийн эрх</label>
+                                    <select name="roll" class="form-control" required >
+                                        <option selected disabled value=''>Хэрэглэгчийн эрхээ сонгоно уу?</option>
+                                        {% for r in roll %}
+                                            <option value="{{ r.id }}"> {{ r.role }} /{{ r.description }}/</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+{#                        <button name="save" type="submit" class="btn btn-primary mr-2">Хадгалах</button>#}
+{#                        <button onclick="history.back()" class="btn btn-light">Буцах</button>#}
+{#                    </form>#}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p><b>Хэрэглэгчийн хандах эрхийг үүсгэх</b></p>
+{#                        <form class="forms-sample" name="myForm"  method="get" action="{{ path('insertUser') }}">#}
+                            <div class="form-group">
+                            {% for m in module %}
+{#                                <input type="checkbox" id="{{ m.id }}" name="module" value="{{ m.id }}">#}
+{#                                <label for="{{ m.id }}"> {{ m.module }}</label><br>#}
+                                {% if m.type != 'category' %}
+                                    <div class="checkbox-fade fade-in-success">
+                                        <label>
+                                            <input type="checkbox" name="module[]" value="{{ m.id }}">
+                                            <span class="cr">
+                                                <i class="cr-icon ik ik-check txt-success"></i>
+                                            </span>
+                                            <span>{{ m.module }}</span>
+                                        </label>
+                                    </div><br>
+                                {% else %}
+                                    <div class="checkbox-fade fade-in-info" style="padding-left: 30px;">
+                                        <label>
+                                            <input type="checkbox" name="module[]" value="{{ m.id }}">
+                                            <span class="cr">
+                                                <i class="cr-icon ik ik-check txt-success"></i>
+                                            </span>
+                                            <span>{{ m.module }}</span>
+                                        </label>
+                                    </div> <br>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                            <button name="save" type="submit" class="btn btn-primary mr-2">Хадгалах</button>
+                        </form>
+                    </div>
+                    {#                    <ul class="task-list">#}
+                    {#                        {% for m in main %}#}
+                    {#                            <li class="list"> {{ m.name }}  </li>#}
+                    {#                        {% endfor %}#}
+                    {#                    </ul>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

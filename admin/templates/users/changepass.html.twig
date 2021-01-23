@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Нууц үг солих{% endblock %}
+
+{% block body %}
+    {{ render(controller(
+    'App\\Controller\\HomeController::index'
+)) }}
+    </div>
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="page-header">
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                <div class="page-header-title">
+                    <i class="ik ik-user-plus theme-color"></i>
+                    <div class="d-inline">
+                        <h5> Нууц үг солих</h5>
+                        {#                        {{ new Ti }}#}
+                        {#                        {{dump(find(2))}}#}
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {#                <div class="card-header" id="head_icon"><i class="ik ik-user-plus theme-color"></i><h3>Хэрэглэгч шинээр нэмэх</h3></div>#}
+                <div class="card-body">
+                    <form method="post" name="theForm" action="{{ path('changePass') }}">
+                        <input type="hidden" name="register" value="1" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Хуучин нууц үг</label>
+                                    <input type="password" name='old_password' class="form-control" autofocus required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Шинэ нууц үг</label>
+                                    <input type="password" name="new_password" class="form-control" placeholder="Нууц үг" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Шинэ нууц үг дахин оруулна уу?</label>
+                                    <input type="password" name="new_password_confirm" class="form-control" placeholder="Нууц үг" required>
+                                </div>
+                            </div>
+                        </div>
+{#                            <tr bgcolor="#FFFFCC" height="20">#}
+{#                                <td align="left" colspan="2"><font color="red"><?php insertToDB(); ?></font></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td bgcolor="#FFFFFF" width="20%" >Хуучин нууц үг</td>#}
+{#                                <td bgcolor="#FFFFFF" width="80%">#}
+{#                                    <input type="password" name='old_password' maxlength="32"/>#}
+{#                                </td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td bgcolor="#FFFFFF">Шинэ нууц үг</td>#}
+{#                                <td bgcolor="#FFFFFF"><input name="new_password" type="password" maxlength="32"/></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td bgcolor="#FFFFFF">Шинэ нууц үг давт</td>#}
+{#                                <td bgcolor="#FFFFFF"><input name="new_password_confirm" type="password" maxlength="32"/></td>#}
+{#                            </tr>#}
+{#                        </table>#}
+                        <br>
+{#                        <input name="save" type="submit" value="Хадгалах"/><input name="cancel" type="submit" value="Болих"/></center>#}
+                        <button name="save" type="submit" class="btn btn-primary mr-2">Хадгалах</button>
+                        <button onclick="history.back()" class="btn btn-light">Буцах</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

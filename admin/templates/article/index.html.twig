@@ -1,0 +1,219 @@
+
+
+{% extends 'base.html.twig'%}
+{% block title %} Нийтлэл {% endblock %}
+
+{% block body %}
+{{ render(controller(
+    'App\\Controller\\HomeController::index'
+)) }}
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="ik ik-file-text theme-color"></i>
+                        <div class="d-inline">
+                            <h5> Нийтлэл </h5>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" id="card1">
+                    <div class="card-header" style="flex-flow: row-reverse;">
+                        {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+                            <a href="#">
+                                <button type="button" class="btn btn-theme"> <i class="ik ik-plus-circle"></i> Нийтлэл шинээр нэмэх </button>
+                            </a>
+                        {% endif %}
+                    </div>
+                    {#                {% set mon = "now"|date("Y-m-d") %}#}
+                    {#                {% set day = mon|date("N")-1 %}#}
+                    {#                {% set d1 = mon|date_modify("-#{day} day")|date("m/d/Y") %}#}
+                    {#                {% set d2 = d1|date_modify("+7 day")|date("m/d/Y") %}#}
+                    {#                {% set d1 = mon %}#}
+                    {#                {% set d2 = nextmon %}#}
+                    {#                {% set weeks = {#}
+                    {#                    1: 'Mon',#}
+                    {#                    2: 'Tue',#}
+                    {#                    3: 'Wed',#}
+                    {#                    4: 'Thu',#}
+                    {#                    5: 'Fri',#}
+                    {#                    6: 'Sat',#}
+                    {#                    7: 'Sun'}#}
+                    {#                %}#}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                        <br>
+                    {% endfor %}
+                    {% for message in app.flashes('error') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                        <br>
+                    {% endfor %}
+                    <div class="card-body">
+                        <div class="scroll_horizontal">
+                            <table class="table dataTable layout-wrap" id="dateTable">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Bodys</th>
+                                    <th>Picture</th>
+                                    <th>Types</th>
+                                    <th>Status</th>
+                                    <th>Views</th>
+                                    <th>Date</th>
+                                    <th>Comments</th>
+                                    <th>Sort</th>
+                                    <th>Who</th>
+                                    <th>CreatedDate</th>
+                                    <th>actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for article in articles %}
+                                    <tr>
+                                        <td>{{ article.id }}</td>
+                                        <td>{{ article.title }}</td>
+                                        <td>{{ article.bodys }}</td>
+                                        <td>{{ article.picture }}</td>
+                                        <td>{{ article.types }}</td>
+                                        <td>{{ article.status }}</td>
+                                        <td>{{ article.views }}</td>
+                                        <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>
+                                        <td>{{ article.comments }}</td>
+                                        <td>{{ article.sort }}</td>
+                                        <td>{{ article.who }}</td>
+                                        <td>{{ article.createdDate ? article.createdDate|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>
+                                            <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
+                                            <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="13">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#        {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}#}
+        {#            {% for c in content %}#}
+        {#                <div class="modal fade" id="edit{{ c.id }}" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">#}
+        {#                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 700px !important;">#}
+        {#                        <div class="modal-content">#}
+        {#                            <form class="forms-sample" name="myForm" method="post" action="{{ path('update_z')}}" onsubmit="return validate_form(this)">#}
+
+        {#                                <div class="modal-header">#}
+        {#                                    <input name="id" type="hidden" value="{{ c.id }}">#}
+
+        {#                                    <h5 class="modal-title" id="exampleModalCenterLabel">{{ c.name }}-н {{ c.date|date("Y-m-d")}}-ний өдрийн мэдээллийг засварлах</h5>#}
+        {#                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
+        {#                                </div>#}
+        {#                                <div class="modal-body">#}
+        {#                                    <div class="row">#}
+        {#                                        #}{#                                <div class="col-sm-12">#}
+        {#                                        #}{#                                    <div class="form-group">#}
+        {#                                        #}{#                                        <label>Текст</label>#}
+        {#                                        #}{#                                        <input type="text" name="text" class="form-control" value="{{ c.content }}">#}
+        {#                                        #}{#                                    </div>#}
+        {#                                        #}{#                                </div>#}
+        {#                                        <div class="col-sm-12">#}
+        {#                                        <textarea class="form-control" type="text" name="message1" rows="3"#}
+        {#                                                  onKeyDown="textCounter(document.myForm.message1,document.myForm.remLen1,320)"#}
+        {#                                                  onKeyUp="textCounter(document.myForm.message1,document.myForm.remLen1,320)">{{ c.content }}</textarea>#}
+        {#                                            <input readonly type="text" name="remLen1" size="3" maxlength="3" value="320" style="color:#F00">тэмдэгт үлдлээ.#}
+        {#                                        </div>#}
+
+
+        {#                                    </div>#}
+        {#                                </div>#}
+
+        {#                                <div class="modal-footer">#}
+        {#                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>#}
+        {#                                    <button type="submit" class="btn btn-success">Хадгалах</button>#}
+        {#                                </div>#}
+        {#                            </form>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            {% endfor %}#}
+        {#        {% endif %}#}
+
+
+        {% endblock %}
+
+
+        {#{% extends 'base.html.twig' %}#}
+
+        {#{% block title %}Article index{% endblock %}#}
+
+        {#{% block body %}#}
+        {#    <h1>Article index</h1>#}
+
+        {#    <table class="table">#}
+        {#        <thead>#}
+        {#            <tr>#}
+        {#                <th>Id</th>#}
+        {#                <th>Title</th>#}
+        {#                <th>Bodys</th>#}
+        {#                <th>Picture</th>#}
+        {#                <th>Types</th>#}
+        {#                <th>Status</th>#}
+        {#                <th>Views</th>#}
+        {#                <th>Date</th>#}
+        {#                <th>Comments</th>#}
+        {#                <th>Sort</th>#}
+        {#                <th>Who</th>#}
+        {#                <th>CreatedDate</th>#}
+        {#                <th>actions</th>#}
+        {#            </tr>#}
+        {#        </thead>#}
+        {#        <tbody>#}
+        {#        {% for article in articles %}#}
+        {#            <tr>#}
+        {#                <td>{{ article.id }}</td>#}
+        {#                <td>{{ article.title }}</td>#}
+        {#                <td>{{ article.bodys }}</td>#}
+        {#                <td>{{ article.picture }}</td>#}
+        {#                <td>{{ article.types }}</td>#}
+        {#                <td>{{ article.status }}</td>#}
+        {#                <td>{{ article.views }}</td>#}
+        {#                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>#}
+        {#                <td>{{ article.comments }}</td>#}
+        {#                <td>{{ article.sort }}</td>#}
+        {#                <td>{{ article.who }}</td>#}
+        {#                <td>{{ article.createdDate ? article.createdDate|date('Y-m-d H:i:s') : '' }}</td>#}
+        {#                <td>#}
+        {#                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>#}
+        {#                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>#}
+        {#                </td>#}
+        {#            </tr>#}
+        {#        {% else %}#}
+        {#            <tr>#}
+        {#                <td colspan="13">no records found</td>#}
+        {#            </tr>#}
+        {#        {% endfor %}#}
+        {#        </tbody>#}
+        {#    </table>#}
+
+        {#    <a href="{{ path('article_new') }}">Create new</a>#}
+        {#{% endblock %}#}

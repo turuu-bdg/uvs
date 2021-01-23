@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+{% block title %}Хэрэглэгчийн мэдээллийг засах{% endblock %}
+
+{% block body %}
+
+    {{ render(controller(
+        'App\\Controller\\HomeController::index'
+    )) }}
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+{#                        <i class="ik ik-user-plus theme-color"></i>#}
+{#                        <div class="d-inline">#}
+{#                            <h5> Хэрэглэгчийн мэдээллийг засах</h5>#}
+{#                            #}{#                        {{ new Ti }}#}
+{#                            #}{#                        {{dump(find(2))}}#}
+{#                            <span></span>#}
+{#                        </div>#}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <nav class="breadcrumb-container" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('index') }}"><i class="ik ik-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Бүртгэлтэй хэрэглэгчид</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Хэрэглэгчийн мэдээллийг засах</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    {% for u in user %}
+                    {% for message in app.flashes('warning') %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% for message in app.flashes('error') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <div class="card-header" id="head_icon"><i class="ik ik-user-check theme-color"></i>
+                        <h3>
+                            <b>{{ u.username}}</b> -ын мэдээллийг засах
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="forms-sample" name="myForm" method="post" action="{{ path('UpdateUser') }}" onsubmit="return validate_form(this)">
+                            <input type="hidden" name="uId" value="{{app.request.get('slug')}}">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Хэрэглэгчийн и-мэйл хаяг</label>
+                                        <input type="text" name="name" class="form-control" value="{{ u.username }}" autofocus required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Хэрэглэгчийн эрх</label>
+                                        <select name="roll" class="form-control" required >
+                                            <option selected disabled value=''>Хэрэглэгчийн эрхээ сонгоно уу?</option>
+                                            {% for r in u.roles %}
+{#                                                <option value="{{ r.id }}"> {{ r.role }}</option>#}
+                                                {% if r == 'ROLE_USER' %}
+                                                    <option selected="selected" value="3"> Хэрэглэгч</option>
+                                                    <option value="2"> Админ</option>
+                                                {% elseif r == 'ROLE_ADMIN' %}
+                                                    <option selected="selected" value="2"> Админ</option>
+                                                    <option value="3"> Хэрэглэгч</option>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+{#                            <button name="save" type="submit" class="btn btn-primary mr-2">Хадгалах</button>#}
+{#                            <button onclick="history.back()" class="btn btn-light">Буцах</button>#}
+{#                        </form>#}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <p><b>Хэрэглэгчийн хандах эрх</b></p>
+{#                        <form class="forms-sample" name="myForm"  method="get" action="{{ path('UpdateUser') }}">#}
+                            <div class="form-group">
+
+                                {% for m in module %}
+                                    {% if m.type != 'category' %}
+                                        <div class="checkbox-fade fade-in-success">
+                                        <label>
+                                        <input type="checkbox"
+                                            {% for p in per %}
+                                                {% if m.id== p.moduleId %}
+                                                    checked
+                                                {% endif %}
+                                            {% endfor %}name="module[]" value="{{ m.id }}">
+                                            <span class="cr">
+                                                <i class="cr-icon ik ik-check txt-success"></i>
+                                            </span>
+                                            <span>{{ m.module }}</span>
+                                        </label>
+                                        </div><br>
+                                    {% else %}
+                                        <div class="checkbox-fade fade-in-info" style="padding-left: 30px;">
+                                            <label>
+                                                <input type="checkbox"
+                                                    {% for p in per %}
+                                                        {% if m.id== p.moduleId %}
+                                                            checked
+                                                        {% endif %}
+                                                    {% endfor %} name="module[]" value="{{ m.id }}">
+                                                <span class="cr">
+                                                    <i class="cr-icon ik ik-check txt-success"></i>
+                                                </span>
+                                                <span>{{ m.module }}</span>
+                                            </label>
+                                        </div> <br>
+                                    {% endif %}
+{#                                {% endfor %}#}
+                                {% endfor %}
+                            </div>
+                            <button name="save" type="submit" class="btn btn-primary mr-2">Хадгалах</button>
+                        </form>
+                    </div>
+                    {#                    <ul class="task-list">#}
+                    {#                        {% for m in main %}#}
+                    {#                            <li class="list"> {{ m.name }}  </li>#}
+                    {#                        {% endfor %}#}
+                    {#                    </ul>#}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endblock %}
