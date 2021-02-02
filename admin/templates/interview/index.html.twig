@@ -14,7 +14,7 @@
             <div class="row align-items-end">
                 <div class="col-lg-8">
                     <div class="page-header-title">
-                        <i class="ik ik-file-text theme-color"></i>
+                        <i class="ik ik-message-square theme-color"></i>
                         <div class="d-inline">
                             <h5> Ярилцлага </h5>
                             <span></span>
@@ -29,27 +29,10 @@
             <div class="col-md-12">
                 <div class="card" id="card1">
                     <div class="card-header" style="flex-flow: row-reverse;">
-                        {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
-                            <a href="#">
-                                <button type="button" class="btn btn-theme"> <i class="ik ik-plus-circle"></i> Ярилцлага шинээр нэмэх </button>
-                            </a>
-                        {% endif %}
+                        <a href="{{ path('interview_new') }}">
+                            <button type="button" class="btn btn-theme"> <i class="ik ik-plus-circle"></i> Ярилцлага шинээр нэмэх </button>
+                        </a>
                     </div>
-                    {#                {% set mon = "now"|date("Y-m-d") %}#}
-                    {#                {% set day = mon|date("N")-1 %}#}
-                    {#                {% set d1 = mon|date_modify("-#{day} day")|date("m/d/Y") %}#}
-                    {#                {% set d2 = d1|date_modify("+7 day")|date("m/d/Y") %}#}
-                    {#                {% set d1 = mon %}#}
-                    {#                {% set d2 = nextmon %}#}
-                    {#                {% set weeks = {#}
-                    {#                    1: 'Mon',#}
-                    {#                    2: 'Tue',#}
-                    {#                    3: 'Wed',#}
-                    {#                    4: 'Thu',#}
-                    {#                    5: 'Fri',#}
-                    {#                    6: 'Sat',#}
-                    {#                    7: 'Sun'}#}
-                    {#                %}#}
                     {% for message in app.flashes('success') %}
                         <div class="alert alert-success">
                             {{ message }}
@@ -66,48 +49,68 @@
                         <div class="scroll_horizontal">
                             <table class="table dataTable layout-wrap" id="dateTable">
                                 <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Bodys</th>
-                                    <th>Picture</th>
-                                    <th>Types</th>
-                                    <th>Status</th>
-                                    <th>Views</th>
-                                    <th>Date</th>
-                                    <th>Comments</th>
-                                    <th>Sort</th>
-                                    <th>Who</th>
-                                    <th>CreatedDate</th>
-                                    <th>actions</th>
-                                </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Зураг</th>
+                                        <th>Гарчиг</th>
+                                        <th>Төрөл</th>
+                                        <th>Огноо</th>
+                                        <th>Дараалал</th>
+                                        <th>Төлөв</th>
+                                        <th><i class="ik ik-settings"></i></th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                {% for interview in interviews %}
-                                    <tr>
-                                        <td>{{ interview.id }}</td>
-                                        <td>{{ interview.title }}</td>
-                                        <td>{{ interview.bodys }}</td>
-                                        <td>{{ interview.picture }}</td>
-                                        <td>{{ interview.types }}</td>
-                                        <td>{{ interview.status }}</td>
-                                        <td>{{ interview.views }}</td>
-                                        <td>{{ interview.date ? interview.date|date('Y-m-d') : '' }}</td>
-                                        <td>{{ interview.comments }}</td>
-                                        <td>{{ interview.sort }}</td>
-                                        <td>{{ interview.who }}</td>
-                                        <td>{{ interview.createdDate ? interview.createdDate|date('Y-m-d H:i:s') : '' }}</td>
-                                        <td>
-                                            <a href="{{ path('interview_show', {'id': interview.id}) }}">show</a>
-                                            <a href="{{ path('interview_edit', {'id': interview.id}) }}">edit</a>
-                                        </td>
-                                    </tr>
-                                {% else %}
-                                    <tr>
-                                        <td colspan="13">no records found</td>
-                                    </tr>
-                                {% endfor %}
+                                    {%  set i=0 %}
+                                    {% for interview in interviews %}
+                                        <tr class="list-item">
+                                            <td>{% set i=i+1 %}{{ i }}</td>
+                                            <td><a href="{{ path('interview_show', {'id': interview.id}) }}"><img src="{{ interview.picture }}" alt="User" class="img-half-10" style="height: 180px"></a></td>
+                                            <td><a href="{{ path('interview_show', {'id': interview.id}) }}">{{ interview.title }}</a></td>
+                                            <td>{{ interview.types }}</td>
+                                            <td>{{ interview.date ? interview.date|date('Y-m-d') : '' }}</td>
+                                            {#                                        <td>{{ article.comments }}</td>#}
+                                            <td>{{ interview.sort }}</td>
+                                            <td>
+                                                {% if interview.status==1 %}
+                                                    <span class="badge badge-pill badge-success mb-1">Идэвхтэй</span>
+                                                {% else %}
+                                                    <span class="badge badge-pill badge-warning mb-1">Идэвхгүй</span>
+                                                {% endif %}
+                                            </td>
+                                            {#                                        <td>{{ article.who }}</td>#}
+                                            {#                                        <td>{{ article.createdDate ? article.createdDate|date('Y-m-d H:i:s') : '' }}</td>#}
+                                            <td>
+                                                <div class="list-actions">
+                                                    {#                                                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}#}
+                                                    <a href="{{ path('interview_edit', {'id': interview.id}) }}" data-toggle="tooltip" data-placement="top" title="Засварлах"><i class="ik ik-edit-2"></i></a>
+                                                    {#                                                {% endif %}#}
+                                                    {#                                                {% if is_granted('ROLE_SUPER_ADMIN') %}#}
+                                                    {#                                                    <a type="button" data-toggle="modal" data-target="#delete{{ id }}" data-toggle="tooltip" data-placement="top" title="Контентийг устгах"><i class="ik ik-trash-2"></i></a>#}
+                                                    {#                                                {% endif %}#}
+                                                </div>
+                                                {#                                            <a href="{{ path('article_show', {'id': article.id}) }}">show</a>#}
+                                                {#                                            <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>#}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="8">Мэдээлэл байхгүй байна</td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Зураг</th>
+                                        <th>Гарчиг</th>
+                                        <th>Төрөл</th>
+                                        <th>Огноо</th>
+                                        <th>Дараалал</th>
+                                        <th>Төлөв</th>
+                                        <th><i class="ik ik-settings"></i></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -160,63 +163,6 @@
 
 
         {% endblock %}
-
-
-        {#{% extends 'base.html.twig' %}#}
-
-        {#{% block title %}Article index{% endblock %}#}
-
-        {#{% block body %}#}
-        {#    <h1>Article index</h1>#}
-
-        {#    <table class="table">#}
-        {#        <thead>#}
-        {#            <tr>#}
-        {#                <th>Id</th>#}
-        {#                <th>Title</th>#}
-        {#                <th>Bodys</th>#}
-        {#                <th>Picture</th>#}
-        {#                <th>Types</th>#}
-        {#                <th>Status</th>#}
-        {#                <th>Views</th>#}
-        {#                <th>Date</th>#}
-        {#                <th>Comments</th>#}
-        {#                <th>Sort</th>#}
-        {#                <th>Who</th>#}
-        {#                <th>CreatedDate</th>#}
-        {#                <th>actions</th>#}
-        {#            </tr>#}
-        {#        </thead>#}
-        {#        <tbody>#}
-        {#        {% for article in articles %}#}
-        {#            <tr>#}
-        {#                <td>{{ article.id }}</td>#}
-        {#                <td>{{ article.title }}</td>#}
-        {#                <td>{{ article.bodys }}</td>#}
-        {#                <td>{{ article.picture }}</td>#}
-        {#                <td>{{ article.types }}</td>#}
-        {#                <td>{{ article.status }}</td>#}
-        {#                <td>{{ article.views }}</td>#}
-        {#                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>#}
-        {#                <td>{{ article.comments }}</td>#}
-        {#                <td>{{ article.sort }}</td>#}
-        {#                <td>{{ article.who }}</td>#}
-        {#                <td>{{ article.createdDate ? article.createdDate|date('Y-m-d H:i:s') : '' }}</td>#}
-        {#                <td>#}
-        {#                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>#}
-        {#                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>#}
-        {#                </td>#}
-        {#            </tr>#}
-        {#        {% else %}#}
-        {#            <tr>#}
-        {#                <td colspan="13">no records found</td>#}
-        {#            </tr>#}
-        {#        {% endfor %}#}
-        {#        </tbody>#}
-        {#    </table>#}
-
-        {#    <a href="{{ path('article_new') }}">Create new</a>#}
-        {#{% endblock %}#}
 
 
 {#        {% extends 'base.html.twig' %}#}

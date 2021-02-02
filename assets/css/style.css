@@ -614,6 +614,7 @@ h1 {
     color: #ffffff;
     background: #000000;
     border-radius: 4px;
+    display: none;
 }
 
 .top-news .slick-prev {

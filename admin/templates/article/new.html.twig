@@ -1,11 +1,53 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
-{% block title %}New Article{% endblock %}
+{#{% block title %}New Article{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1>Create new Article</h1>#}
+
+{#    {{ include('article/_form.html.twig') }}#}
+
+{#    <a href="{{ path('article_index') }}">back to list</a>#}
+{#{% endblock %}#}
+
+
+
+{% extends 'base.html.twig'%}
+{% block title %} Шинэ нийтлэл нэмэх {% endblock %}
 
 {% block body %}
-    <h1>Create new Article</h1>
+{{ render(controller(
+    'App\\Controller\\HomeController::index'
+)) }}
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="ik ik-plus-square theme-color"></i>
+                        <div class="d-inline">
+                            <h5> Шинэ нийтлэл нэмэх</h5>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
 
-    {{ include('article/_form.html.twig') }}
+            </div>
+        </div>
 
-    <a href="{{ path('article_index') }}">back to list</a>
+        <div class="row layout-wrap" id="layout-wrap">
+            <div class="col-md-12">
+                <div class="card" id="card1">
+                    <div class="card-header" style="flex-flow: row-reverse;">
+                    </div>
+                    <div class="card-body">
+                        {{ include('article/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}
+
+

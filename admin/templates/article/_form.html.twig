@@ -1,4 +1,44 @@
+{#{{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <button class="btn">{{ button_label|default('Save') }}</button>#}
+{#{{ form_end(form) }}#}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="my-custom-class-for-errors">
+    {{ form_errors(form) }}
+</div>
+<div class="row">
+    {#    <input type="hidden" name="form[_token]" value="{{ form._token.vars.value }}" />#}
+    <input type="hidden" name="token" value="{{ csrf_token('[insert intended action here]') }}"/>
+    <div class="col-sm-9">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.picture) }}
+    </div>
+{#    <div class="col-sm-4">#}
+{#        {{ form_row(form.bodys) }}#}
+{#    </div>#}
+    <div class="col-sm-2">
+        {{ form_row(form.types) }}
+    </div>
+
+
+    <div class="col-sm-2">
+        {{ form_row(form.status) }}
+    </div>
+    <div class="col-sm-2">
+        {{ form_row(form.date) }}
+    </div>
+    <div class="col-sm-5">
+        {{ form_row(form.comments) }}
+    </div>
+    <div class="col-sm-1">
+        {{ form_row(form.sort) }}
+    </div>
+</div>
+
+<button type="submit" name="form_name[submit]" class="btn btn-primary">Хадгалах</button>
+
+<button onclick="history.back()" class="btn btn-light">Буцах</button>
 {{ form_end(form) }}

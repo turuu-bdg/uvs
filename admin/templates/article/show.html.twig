@@ -1,66 +1,169 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
-{% block title %}Article{% endblock %}
+{#{% block title %}Article{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1>Article</h1>#}
+
+{#    <table class="table">#}
+{#        <tbody>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <td>{{ article.id }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Title</th>#}
+{#                <td>{{ article.title }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Bodys</th>#}
+{#                <td>{{ article.bodys }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Picture</th>#}
+{#                <td>{{ article.picture }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Types</th>#}
+{#                <td>{{ article.types }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Status</th>#}
+{#                <td>{{ article.status }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Views</th>#}
+{#                <td>{{ article.views }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Date</th>#}
+{#                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Comments</th>#}
+{#                <td>{{ article.comments }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Sort</th>#}
+{#                <td>{{ article.sort }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Who</th>#}
+{#                <td>{{ article.who }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>CreatedDate</th>#}
+{#                <td>{{ article.createdDate ? article.createdDate|date('Y-m-d H:i:s') : '' }}</td>#}
+{#            </tr>#}
+{#        </tbody>#}
+{#    </table>#}
+
+{#    <a href="{{ path('article_index') }}">back to list</a>#}
+
+{#    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>#}
+
+{#    {{ include('article/_delete_form.html.twig') }}#}
+{#{% endblock %}#}
+
+
+
+
+{% extends 'base.html.twig'%}
+{% block title %} {{ article.title }} {% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
+{{ render(controller(
+    'App\\Controller\\HomeController::index'
+)) }}
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="ik ik-eye theme-color"></i>
+                        <div class="d-inline">
+                            <h5> {{ article.title }}</h5>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Bodys</th>
-                <td>{{ article.bodys }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ article.picture }}</td>
-            </tr>
-            <tr>
-                <th>Types</th>
-                <td>{{ article.types }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ article.status }}</td>
-            </tr>
-            <tr>
-                <th>Views</th>
-                <td>{{ article.views }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Comments</th>
-                <td>{{ article.comments }}</td>
-            </tr>
-            <tr>
-                <th>Sort</th>
-                <td>{{ article.sort }}</td>
-            </tr>
-            <tr>
-                <th>Who</th>
-                <td>{{ article.who }}</td>
-            </tr>
-            <tr>
-                <th>CreatedDate</th>
-                <td>{{ article.createdDate ? article.createdDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </div>
+        </div>
 
-    <a href="{{ path('article_index') }}">back to list</a>
+        <div class="row layout-wrap" id="layout-wrap">
+            <div class="col-md-12">
+                <div class="card" id="card1">
+                    <div class="card-header" style="flex-flow: row-reverse;">
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ article.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <td>{{ article.title }}</td>
+                            </tr>
+                            <tr>
+                                <th>Bodys</th>
+                                <td>{{ article.bodys }}</td>
+                            </tr>
+                            <tr>
+                                <th>Picture</th>
+                                <td>{{ article.picture }}</td>
+                            </tr>
+                            <tr>
+                                <th>Types</th>
+                                <td>{{ article.types }}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>{{ article.status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Views</th>
+                                <td>{{ article.views }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Comments</th>
+                                <td>{{ article.comments }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sort</th>
+                                <td>{{ article.sort }}</td>
+                            </tr>
+                            <tr>
+                                <th>Who</th>
+                                <td>{{ article.who }}</td>
+                            </tr>
+                            <tr>
+                                <th>CreatedDate</th>
+                                <td>{{ article.createdDate ? article.createdDate|date('Y-m-d H:i:s') : '' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+{#                        <button type="submit" name="form_name[submit]" class="btn btn-primary">Хадгалах</button>#}
 
-    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                        <button onclick="history.back()" class="btn btn-light">Буцах</button>
+{#                        <a href="{{ path('article_index') }}">back to list</a>#}
 
-    {{ include('article/_delete_form.html.twig') }}
-{% endblock %}
+{#                        <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>#}
+
+                        {{ include('article/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+
+
